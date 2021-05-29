@@ -8,7 +8,9 @@
 	## NOTE! ! ! YOU MUST MUST MUST EDIT THE 'CALENDARS' VARIABLE
 	# if more than one, separate with a comma, no space
 	# CaSe MAtTERs!
-CALENDARS='Tj,TJ-Private'
+CALENDARS='Personal Calendar,Hiren Hindocha,Calendar'
+TRIGGER_SH="$HOME/scripts/google_meet.sh"
+TRIGGER_AT="2m"
 
 ##############################################################################################################
 ##############################################################################################################
@@ -328,6 +330,18 @@ ${DIFF_READABLE}"
 ##		16 minutes =  960
 ##		11 minutes =  660
 ##		 6 minutes =  360
+
+# IF TRIGGER_AT is set , then we have a Trigger script to call 
+#
+if (( ${+TRIGGER_AT} )); then 
+    if [ "$DIFF_READABLE" = "$TRIGGER_AT" ]; 
+    then
+#        echo "$DIFF_READABLE " > /tmp/meet.log
+#        echo "Triggering $TRIGGER_SH" >> /tmp/meet.log
+        $TRIGGER_SH
+    fi
+fi
+
 
   if [[ "$DIFF" -le "360" ]]
 then
